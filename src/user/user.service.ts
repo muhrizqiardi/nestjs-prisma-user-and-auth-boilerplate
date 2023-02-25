@@ -8,7 +8,7 @@ import { FindOneUserDto } from './dto/find-one-user.dto';
 export class UserService {
   constructor(private prisma: PrismaService) {}
 
-  async createUser(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateUserDto) {
     const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
 
     return this.prisma.user.create({
@@ -16,13 +16,13 @@ export class UserService {
     });
   }
 
-  async findOneUser(findOneUserDto: FindOneUserDto) {
+  async findOne(findOneUserDto: FindOneUserDto) {
     return this.prisma.user.findUnique({
       where: findOneUserDto,
     });
   }
 
-  async updateUser(id: number, updateUserDto: CreateUserDto) {
+  async update(id: number, updateUserDto: CreateUserDto) {
     const hashedPassword = await bcrypt.hash(updateUserDto.password, 10);
 
     return this.prisma.user.update({
@@ -31,7 +31,7 @@ export class UserService {
     });
   }
 
-  async deleteUser(id: number) {
+  async delete(id: number) {
     return this.prisma.user.delete({
       where: { id },
     });
